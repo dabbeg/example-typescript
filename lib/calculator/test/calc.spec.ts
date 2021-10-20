@@ -1,4 +1,4 @@
-import Calculator from '../lib/calc'
+import Calculator from '../calc'
 
 describe('Calculator', () => {
   it('should add two numbers together', () => {

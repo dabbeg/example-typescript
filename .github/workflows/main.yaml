@@ -1,16 +1,59 @@
 name: Workflow for Codecov example-typescript
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - master
+  pull_request: {}
+  workflow_dispatch: {}
 jobs:
   run:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Install dependencies
         run: npm install
-      - name: Run tests and collect coverage
-        run: npm run test
-      - name: Upload coverage to Codecov
+
+      - name: Run tests for calculator
+        run: npm run test:calculator
+      - name: Upload coverage to Codecov for calculator
         uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: calculator
+      - name: SonarCloud Scan for calculator
+        uses: SonarSource/sonarcloud-github-action@master
+        with:
+          args: >
+            -Dsonar.organization=dabbeg
+            -Dsonar.projectKey=dabbeg_example-typescript_caclulator
+            -Dsonar.sources=lib/calculator
+            -Dsonar.test.exclusions=lib/calculator/test/**
+            -Dsonar.tests=lib/calculator/test
+            -Dsonar.verbose=true
         env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Run tests for worker
+        run: npm run test:worker
+      - name: Upload coverage to Codecov for worker
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: worker
+      - name: SonarCloud Scan for worker
+        uses: SonarSource/sonarcloud-github-action@master
+        with:
+          args: >
+            -Dsonar.organization=dabbeg
+            -Dsonar.projectKey=dabbeg_example-typescript_worker
+            -Dsonar.sources=lib/worker
+            -Dsonar.test.exclusions=lib/worker/test/**
+            -Dsonar.tests=lib/worker/test
+            -Dsonar.verbose=true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

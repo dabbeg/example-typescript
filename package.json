@@ -14,8 +14,10 @@
     "typescript": "^3.1.1"
   },
   "scripts": {
-    "pretest": "tsc -p .",
-    "test": "jest --coverage"
+    "pretest:calculator": "tsc -p .",
+    "test:calculator": "jest --coverage lib/calculator",
+    "pretest:worker": "tsc -p .",
+    "test:worker": "jest --coverage lib/worker"
   },
   "repository": {
     "type": "git",
