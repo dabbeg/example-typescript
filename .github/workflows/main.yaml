@@ -8,6 +8,13 @@ on:
 jobs:
   run:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        lib:
+          - calculator
+          - worker
+          - car
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -16,44 +23,23 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run tests for calculator
-        run: npm run test:calculator
-      - name: Upload coverage to Codecov for calculator
+      - name: Run tests for ${{ matrix.lib }}
+        run: npm run test:${{ matrix.lib }}
+      - name: Upload coverage to Codecov for ${{ matrix.lib }}
         uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          flags: calculator
-      - name: SonarCloud Scan for calculator
+          flags: ${{ matrix.lib }}
+      - name: SonarCloud Scan for ${{ matrix.lib }}
         uses: SonarSource/sonarcloud-github-action@master
         with:
           args: >
             -Dsonar.organization=dabbeg
             -Dsonar.projectKey=dabbeg_example-typescript_caclulator
-            -Dsonar.sources=lib/calculator
-            -Dsonar.test.exclusions=lib/calculator/test/**
-            -Dsonar.tests=lib/calculator/test
-            -Dsonar.verbose=true
+            -Dsonar.sources=lib/${{ matrix.lib }}
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.test.exclusions=lib/${{ matrix.lib }}/test/**
+            -Dsonar.tests=lib/${{ matrix.lib }}/test
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-      - name: Run tests for worker
-        run: npm run test:worker
-      - name: Upload coverage to Codecov for worker
-        uses: codecov/codecov-action@v2
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          flags: worker
-      - name: SonarCloud Scan for worker
-        uses: SonarSource/sonarcloud-github-action@master
-        with:
-          args: >
-            -Dsonar.organization=dabbeg
-            -Dsonar.projectKey=dabbeg_example-typescript_worker
-            -Dsonar.sources=lib/worker
-            -Dsonar.test.exclusions=lib/worker/test/**
-            -Dsonar.tests=lib/worker/test
-            -Dsonar.verbose=true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

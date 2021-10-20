@@ -17,7 +17,9 @@
     "pretest:calculator": "tsc -p .",
     "test:calculator": "jest --coverage lib/calculator",
     "pretest:worker": "tsc -p .",
-    "test:worker": "jest --coverage lib/worker"
+    "test:worker": "jest --coverage lib/worker",
+    "pretest:car": "tsc -p .",
+    "test:car": "jest --coverage lib/car"
   },
   "repository": {
     "type": "git",
