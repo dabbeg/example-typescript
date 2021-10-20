@@ -4,17 +4,18 @@
   "description": "Codecov Example Typescript",
   "main": "index.js",
   "devDependencies": {
-    "@types/mocha": "5.2.5",
-    "chai": "^4.2.0",
-    "codecov": "^3.1.0",
-    "mocha": "^5.2.0",
-    "nyc": "^13.0.1",
+    "@babel/core": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "@babel/preset-typescript": "^7.15.0",
+    "@types/jest": "^27.0.2",
+    "babel-jest": "^27.3.1",
+    "codecov": "^3.8.3",
+    "jest": "^27.3.1",
     "typescript": "^3.1.1"
   },
   "scripts": {
     "pretest": "tsc -p .",
-    "test": "nyc mocha",
-    "posttest": "nyc report --reporter=json"
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",
