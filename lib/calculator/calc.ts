@@ -6,4 +6,8 @@ export default class Calculator {
   minus(x: number, y: number): number {
     return x - y;
   }
+
+  divide(x: number, y: number): number {
+    return x / y
+  }
 }
