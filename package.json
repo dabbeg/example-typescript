@@ -14,12 +14,12 @@
     "typescript": "^3.1.1"
   },
   "scripts": {
-    "pretest:calculator": "tsc -p .",
-    "test:calculator": "jest --coverage lib/calculator",
-    "pretest:worker": "tsc -p .",
-    "test:worker": "jest --coverage lib/worker",
-    "pretest:car": "tsc -p .",
-    "test:car": "jest --coverage lib/car"
+    "pretest:calculator": "tsc --noEmit -p .",
+    "test:calculator": "jest --collectCoverageFrom '**/*.ts' --coverage lib/calculator",
+    "pretest:worker": "tsc --noEmit -p .",
+    "test:worker": "jest --collectCoverageFrom '**/*.ts' --coverage lib/worker",
+    "pretest:car": "tsc --noEmit -p .",
+    "test:car": "jest --collectCoverageFrom '**/*.ts' --coverage lib/car"
   },
   "repository": {
     "type": "git",
