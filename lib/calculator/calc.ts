@@ -10,4 +10,8 @@ export default class Calculator {
   divide(x: number, y: number): number {
     return x / y
   }
+
+  multiply(x: number, y: number): number {
+    return x * y
+  }
 }
