@@ -42,7 +42,7 @@ jobs:
         with:
           args: >
             -Dsonar.organization=dabbeg
-            -Dsonar.projectKey=dabbeg_example-typescript_caclulator
+            -Dsonar.projectKey=dabbeg_example-typescript_${{ matrix.lib }}
             -Dsonar.sources=lib/${{ matrix.lib }}
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
             -Dsonar.test.exclusions=lib/${{ matrix.lib }}/test/**
