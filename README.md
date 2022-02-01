@@ -1,6 +1,5 @@
 # [Codecov][1] TypeScript Example
 
-
 [1]: https://codecov.io/
 [2]: https://twitter.com/codecov
 [3]: mailto:hello@codecov.io
