@@ -5,6 +5,7 @@ export default class Car {
     this.speed = 0
   }
 
+
   accelerate(kmPerHour: number): number {
     this.speed += kmPerHour;
     return this.speed
